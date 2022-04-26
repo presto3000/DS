@@ -46,6 +46,79 @@ void RecursiveDisplay(struct Node* NodePtr)
         printf("%d ", NodePtr->Data);
     }
 }
+
+
+int Count(struct Node* NodePtr)
+{
+    int l = 0;
+    while (NodePtr)
+    {
+        l++;
+        NodePtr = NodePtr->NextPtr;
+    }
+    return l;
+}
+int RCount(struct Node* NodePtr)
+{
+    if (NodePtr)
+        return RCount(NodePtr->NextPtr) + 1;
+    else
+        return 0;
+};
+
+int Sum(struct Node* NodePtr)
+{
+    int s = 0;
+    while (NodePtr)
+    {
+        s += NodePtr->Data;
+        NodePtr = NodePtr->NextPtr;
+
+    }
+    return s;
+}
+int RSum(struct Node* NodePtr)
+{
+    if (NodePtr == nullptr)
+    {
+        return 0;
+    }
+    else
+        return RSum(NodePtr->NextPtr) + NodePtr->Data;
+}
+
+int Max(struct Node* NodePtr)
+{
+    int Max = 0;
+
+    while (NodePtr)
+    {
+        if (NodePtr->Data > Max)
+        {
+            Max = NodePtr->Data;
+        }
+        NodePtr = NodePtr->NextPtr;
+    }
+    return Max;
+}
+
+int RMax(struct Node* NodePtr)
+{
+    int X = 0;
+    if (NodePtr == nullptr)
+    {
+        return SHRT_MIN;
+    }
+    X = RMax(NodePtr->NextPtr);
+    if (X > NodePtr->Data)
+    {
+        return X;
+    }
+    else
+    {
+        return NodePtr->Data;
+    }
+}
 int main() 
 {
     // Create Array
@@ -55,7 +128,10 @@ int main()
     Create(A, 5);
 
     //Display(First);
-    RecursiveDisplay(First);
+    //RecursiveDisplay(First);
+    //printf("Legth is %d", RCount(First));
+    //printf(" Sum is %d\n\n", RSum(First));
+    printf(" Max is %d\n\n", RMax(First));
 
     return 0;
 }
