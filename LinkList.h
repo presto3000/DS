@@ -38,7 +38,14 @@ void Display(struct Node* NodePtr)
         NodePtr = NodePtr->NextPtr;
     }
 }
-
+void RecursiveDisplay(struct Node* NodePtr)
+{
+    if (NodePtr != nullptr)
+    {
+        RecursiveDisplay(NodePtr->NextPtr);
+        printf("%d ", NodePtr->Data);
+    }
+}
 int main() 
 {
     // Create Array
@@ -47,7 +54,8 @@ int main()
     // Create LinkList
     Create(A, 5);
 
-    Display(First);
+    //Display(First);
+    RecursiveDisplay(First);
 
     return 0;
 }
