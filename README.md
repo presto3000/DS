@@ -1,2 +1,2 @@
-# DS
-DS
+# Data Structures
+DS - Data Structures
