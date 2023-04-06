@@ -86,7 +86,7 @@ class LinkedList {
                 tail = nullptr;
             } else {
                 Node* pre = head;
-                while (temp->next) {
+                while(temp->next) {
                     pre = temp;
                     temp = temp->next;
                 }
@@ -94,7 +94,7 @@ class LinkedList {
                 tail->next = nullptr;
             }
             delete temp;
-            length--;
+            length--;            
         }
 
         void prepend(int value) {
@@ -122,52 +122,98 @@ class LinkedList {
             length--;
         }
 
+        Node* get(int index) {
+            if (index < 0 || index >= length) return nullptr;
+            Node* temp = head;
+            for (int i = 0; i < index; ++i) {
+                temp = temp->next;
+            }
+            return temp;
+        }
+
+        bool set(int index, int value) {
+            Node* temp = get(index);
+            if (temp) {
+                temp->value = value;
+                return true;
+            } 
+            return false;
+        }
+
+        bool insert(int index, int value) {
+            if (index < 0 || index > length) return false;
+            if (index == 0) {
+                prepend(value);
+                return true;
+            }
+            if (index == length) {
+                append(value);
+                return true;
+            }
+            Node* newNode = new Node(value);
+            Node* temp = get(index - 1);
+            newNode->next = temp->next;
+            temp->next = newNode;
+            length++;
+            return true;
+        }       
+
 };
+
 
 
 int main() {
         
-    LinkedList* myLinkedList = new LinkedList(2);
-    myLinkedList->append(1);
+    LinkedList* myLinkedList = new LinkedList(1);
+    myLinkedList->append(3);
 
+    cout << "LL before insert():" << endl;
+    myLinkedList->printList();
 
-    cout << "LL before deleteFirst():\n";
+    
+
+    myLinkedList->insert(1, 2);
+
+    cout << "\nLL after insert(2) in middle:\n";
     myLinkedList->printList();
 
 
-    myLinkedList->deleteFirst();
-    cout << "\n\nLL after 1st deleteFirst():\n";
+    myLinkedList->insert(0, 0);
+
+    cout << "\nLL after insert(0) at beginning:\n";
+    myLinkedList->printList();
+
+    myLinkedList->insert(4, 4);
+
+    cout << "\nLL after insert(4) at end:\n";
     myLinkedList->printList();
 
 
-    myLinkedList->deleteFirst();
-    cout << "\n\nLL after 2nd deleteFirst():\n";
-    myLinkedList->printList();
-
-
-    myLinkedList->deleteFirst();
-    cout << "\n\nLL after 3rd deleteFirst():\n";
-    myLinkedList->printList();
-
-
-    /* 
-        EXPECTED OUTPUT:
+    /*  EXPECTED OUTPUT:
         ----------------
-        LL before deleteFirst():
+        LL before insert():
+        1
+        3
+
+        LL after insert(2) in middle:
+        1
         2
+        3
+
+        LL after insert(0) at beginning:
+        0
         1
+        2
+        3
 
-
-        LL after 1st deleteFirst():
+        LL after insert(4) at end:
+        0
         1
-
-
-        LL after 2nd deleteFirst():
-
-
-        LL after 3rd deleteFirst():
+        2
+        3
+        4
     
     */
-    
+  
 }
 
