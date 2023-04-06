@@ -158,6 +158,33 @@ class LinkedList {
             return true;
         }       
 
+        void deleteNode(int index) {
+            if (index < 0 || index >= length) return;
+            if (index == 0) return deleteFirst();
+            if (index == length - 1) return deleteLast();
+
+            Node* prev = get(index - 1);
+            Node* temp = prev->next;
+
+            prev->next = temp->next;
+            delete temp;
+            length--;        
+        }
+
+        void reverse() {
+            Node* temp = head;
+            head = tail;
+            tail = temp;
+            Node* after = temp->next;
+            Node* before = nullptr;
+            for (int i = 0; i < length; ++i) {
+                after = temp->next;
+                temp->next = before;
+                before = temp;
+                temp = after;
+            }
+        }
+
 };
 
 
@@ -165,55 +192,35 @@ class LinkedList {
 int main() {
         
     LinkedList* myLinkedList = new LinkedList(1);
+    myLinkedList->append(2);
     myLinkedList->append(3);
+    myLinkedList->append(4);
 
-    cout << "LL before insert():" << endl;
+    cout << "LL before reverse():" << endl;
     myLinkedList->printList();
 
-    
+    myLinkedList->reverse();
 
-    myLinkedList->insert(1, 2);
-
-    cout << "\nLL after insert(2) in middle:\n";
-    myLinkedList->printList();
-
-
-    myLinkedList->insert(0, 0);
-
-    cout << "\nLL after insert(0) at beginning:\n";
-    myLinkedList->printList();
-
-    myLinkedList->insert(4, 4);
-
-    cout << "\nLL after insert(4) at end:\n";
-    myLinkedList->printList();
+    cout << "\nLL after reverse():\n";
+    myLinkedList->printList();  
 
 
     /*  EXPECTED OUTPUT:
         ----------------
-        LL before insert():
-        1
-        3
-
-        LL after insert(2) in middle:
-        1
-        2
-        3
-
-        LL after insert(0) at beginning:
-        0
-        1
-        2
-        3
-
-        LL after insert(4) at end:
-        0
+        LL before reverse():
         1
         2
         3
         4
-    
+
+        LL after reverse():
+        4
+        3
+        2
+        1
+
     */
-  
+        
 }
+
 
